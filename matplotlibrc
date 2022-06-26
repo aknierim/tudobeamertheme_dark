@@ -1,0 +1,49 @@
+# use pgf backend
+backend : pgf
+
+# font settings
+font.size: 12
+font.family : sans-serif
+font.sans-serif : DejaVu Sans
+
+# grid settings
+grid.linestyle: dotted
+grid.linewidth: 1
+grid.alpha: 0.7
+
+# legend settings
+legend.frameon: False
+legend.numpoints: 1
+legend.scatterpoints: 1
+
+# line settings
+lines.solid_capstyle: projecting
+lines.linewidth: 1
+lines.markersize: 3
+
+# tick settings
+xtick.direction: in
+xtick.major.size: 7.0
+xtick.minor.size: 4.0
+xtick.major.width: 1
+xtick.minor.width: 1
+ytick.direction: in
+ytick.major.size: 7.0
+ytick.minor.size: 4.0
+ytick.major.width: 1
+ytick.minor.width: 1
+
+# figure settings
+figure.figsize: 5.7, 4.3
+
+# pgf settings, use LaTeX
+text.usetex: True
+pgf.texsystem: lualatex
+pgf.preamble: \input{header-matplotlib.tex}
+pgf.rcfonts : False
+
+
+# figure settings
+savefig.dpi: 300
+savefig.bbox: tight
+savefig.pad_inches: 0.0

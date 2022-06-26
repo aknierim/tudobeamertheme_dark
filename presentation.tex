@@ -1,0 +1,75 @@
+\input{header.tex}
+
+% load the theme after all packages
+%\def\darktheme{1}
+\ifdefined\darktheme
+  \usetheme[
+    % showtotalframes, % show total number of frames in the footline
+  ]{tudo_dark}
+\else
+  \usetheme[
+    % showtotalframes,
+  ]{tudo}
+\fi
+
+\input{pkg-settings.tex}
+
+\title{\texttt{TUDoBeamerTheme} and \texttt{TUDoBeamerTheme\_dark}}
+\subtitle{A \LaTeX{} beamer theme}
+\author[R.~Feynman]{Richard Feynman}
+% \date{month day, year} % uncomment to set specific date
+\institute[abbreviation of chair]{Name of chair \\  Name of department}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \tableofcontents
+\end{frame}
+
+\section{About this theme}
+\begin{frame}{Notes}
+  This theme is based on the excellent \texttt{TUDoBeamerTheme} provided by Maximilian Nöthe \texttt{https://github.com/maxnoe/TUDoBeamerTheme}.
+  I merely added the dark theme option as well as some extras I found useful or "nice to have" when I created some talks with the original theme.
+  \begin{itemize}
+    \item To install this theme at least the files \texttt{beamerthemetudo.sty} and \texttt{beamerthemetudo\_dark.sty} as well as the folder logos have to be moved to a folder where \LaTeX{} can find packages.
+      This can be
+      \begin{itemize}
+        \item \texttt{TEXMFHOME/tex/latex/tudobeamertheme} and \texttt{TEXMFHOME/tex/latex/tudobeamertheme\_dark}. You can get \texttt{TEXMFHOME} by running \texttt{kpsewhich --var-value TEXMFHOME}, usually this would be \texttt{\$HOME/texmf}.
+        \item The same folder in which you compile your document.
+        \item Any folder that is included in the variable \texttt{TEXINPUTS} (see \texttt{makefile}).
+      \end{itemize}
+  \end{itemize}
+
+  One liner for installation:\\
+  \texttt{\footnotesize\$ cd `kpsewhich --var-value TEXMFHOME` \&\& git clone https://github.com/aknierim/tudobeamertheme\_dark}
+
+  \medskip
+  General information on \LaTeX{} and Beamer:
+  \begin{itemize}
+    \item Extensive course on \LaTeX{} by PeP et Al. \\
+      \url{http://toolbox.pep-dortmund.org/notes}
+    \item Beamer \LaTeX{} class documetation:\\
+      \url{http://www.ctan.org/pkg/beamer}
+  \end{itemize}
+\end{frame}
+
+
+\section{Fonts}
+\begin{frame}
+  The font recommended in the corporate design of the TU Dortmund university
+  is \enquote{Akkurat Office}.\\
+  \bigskip
+  If that font is not available, \enquote{Fira Sans} will be used as an alternative.\\
+  \bigskip
+  When using \texttt{xelatex} or \texttt{lualatex} the font \enquote{Latin Modern Math}
+  will be used as a default but can be changed to \enquote{Fira Math} if you want a
+  sans serif font.
+\end{frame}
+
+\input{content/sample_slides.tex}
+
+
+\end{document}

@@ -21,8 +21,10 @@
 # *.eps
 # *.pdf
 
-## Generated if empty string is given at "Please type another file name for output:"
-.pdf
+## Ignore pdfs
+presentation_light.pdf
+presentation_dark.pdf
+plots/*.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

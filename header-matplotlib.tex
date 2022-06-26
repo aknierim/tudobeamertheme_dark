@@ -1,0 +1,37 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{fontspec}
+
+\usepackage[
+  math-style=ISO,    % ┐
+  bold-style=ISO,    % │
+  sans-style=italic, % │ follow ISO standard
+  nabla=upright,     % │
+  partial=upright,   % ┘
+  warnings-off={           % ┐
+    mathtools-colon,       % │ disable some warnings
+    mathtools-overbracket, % │
+  },                       % ┘
+]{unicode-math}
+
+% font settings
+\setmathfont{DejaVu Sans}
+\setmathfont{XITS Math}[range={scr, bfscr}]
+\setmathfont{XITS Math}[range={cal, bfcal}, StylisticSet=1]
+
+% settings for decimals and units
+\usepackage[
+  separate-uncertainty=true,
+  per-mode=reciprocal,
+]{siunitx}
+
+% chemische Formeln
+\usepackage[
+  version=4,
+  math-greek=default,
+  text-greek=default,
+]{mhchem}
+
+% for nicer fractions
+\usepackage{xfrac}

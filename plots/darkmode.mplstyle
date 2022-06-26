@@ -1,0 +1,20 @@
+# color settings
+axes.edgecolor: white
+axes.facecolor: 3a3d41
+axes.labelcolor: white
+axes.prop_cycle: cycler('color', ['8dd3c7', 'feffb3', 'bfbbd9', 'fa8174', '81b1d2', 'fdb462', 'b3de69', 'bc82bd', 'ccebc4', 'ffed6f'])
+boxplot.boxprops.color: white
+boxplot.capprops.color: white
+boxplot.flierprops.color: white
+boxplot.flierprops.markeredgecolor: white
+boxplot.whiskerprops.color: white
+figure.edgecolor: 3a3d41
+figure.facecolor: 3a3d41
+grid.color: white
+lines.color: white
+patch.edgecolor: white
+savefig.edgecolor: 3a3d41
+savefig.facecolor: 3a3d41
+text.color: white
+xtick.color: white
+ytick.color: white
