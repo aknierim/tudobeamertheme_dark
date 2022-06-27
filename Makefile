@@ -38,12 +38,12 @@ clean:
 
 plots_light: plots/plot.py matplotlibrc header-matplotlib.tex
 	@echo "Make ${BLUE}$@${RESET}:"
-	@TEXINPUTS="$(call translate,$(pwd):)" python Plots/plot.py --theme light
+	@TEXINPUTS="$(call translate,$(pwd):)" python plots/plot.py --theme light
 	@echo
 
 plots_dark: plots/plot.py matplotlibrc header-matplotlib.tex
 	@echo "Make ${BLUE}$@${RESET}:"
-	@TEXINPUTS="$(call translate,$(pwd):)" python Plots/plot.py --theme dark
+	@TEXINPUTS="$(call translate,$(pwd):)" python plots/plot.py --theme dark
 	@echo
 
 
