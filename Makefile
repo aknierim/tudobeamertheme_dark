@@ -38,19 +38,19 @@ clean:
 
 plots_light: plots/plot.py matplotlibrc header-matplotlib.tex
 	@echo "Make ${BLUE}$@${RESET}:"
-	@TEXINPUTS="$(call translate,$(pwd):)" python plots/plot.py --theme light
+	@TEXINPUTS="$$(pwd):" python plots/plot.py --theme light
 	@echo
 
 plots_dark: plots/plot.py matplotlibrc header-matplotlib.tex
 	@echo "Make ${BLUE}$@${RESET}:"
-	@TEXINPUTS="$(call translate,$(pwd):)" python plots/plot.py --theme dark
+	@TEXINPUTS="$$(pwd):" python plots/plot.py --theme dark
 	@echo
 
 
 .DELETE_ON_ERROR:
 presentation_light.pdf: presentation.tex header.tex content/* graphics/* beamerthemetudo.sty plots_light | build
 	@echo "(${RED}lualatex${RESET}) make ${BLUE}$@${RESET}"
-	@TEXINPUTS="$(call translate,$(pwd):)" lualatex $(TeXOptions) presentation.tex 1> build/log || cat build/log
+	@TEXINPUTS="$$(pwd):" lualatex $(TeXOptions) presentation.tex 1> build/log || cat build/log
 	@echo
 	@BIBINPUTS=build: biber build/presentation.bcf|grep -i -e'biber' -e'error' -e'warn' --color=auto
 	@echo
@@ -62,7 +62,7 @@ presentation_light.pdf: presentation.tex header.tex content/* graphics/* beamert
 
 presentation_dark.pdf: presentation.tex header.tex content/* graphics/* beamerthemetudo_dark.sty plots_dark | build
 	@echo "(${RED}lualatex${RESET}) make ${BLUE}$@${RESET}"
-	@TEXINPUTS="$(call translate,$(pwd):)" lualatex $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
+	@TEXINPUTS="$$(pwd):" lualatex $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
 	@echo
 	@BIBINPUTS=build: biber build/presentation.bcf|grep -i -e'biber' -e'error' -e'warn' --color=auto
 	@echo
