@@ -1,6 +1,5 @@
 #!/bin/bash
 pwd := $$(pwd)
-translate = $1
 
 # colors / text formatting
 BACKGR=`tput setaf 0`
