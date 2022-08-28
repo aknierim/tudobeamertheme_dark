@@ -11,9 +11,10 @@ BOLD=`tput bold`
 RESET=`tput sgr0`
 
 # LaTeX options to disable interruptions
-TeXOptions = 	--output-directory=build \
-				--interaction=nonstopmode \
-				--halt-on-error \
+TeXOptions = -lualatex \
+			 -interaction=nonstopmode \
+			 -halt-on-error \
+			 -output-directory=build
 
 
 all: presentation_light.pdf log presentation_dark.pdf
@@ -47,29 +48,13 @@ plots_dark: plots/plot.py matplotlibrc header-matplotlib.tex
 
 
 .DELETE_ON_ERROR:
-presentation_light.pdf: presentation.tex header.tex content/* graphics/* beamerthemetudo.sty plots_light | build
-	@echo "(${RED}lualatex${RESET}) make ${BLUE}$@${RESET}"
-	@TEXINPUTS="$$(pwd):" lualatex $(TeXOptions) presentation.tex 1> build/log || cat build/log
-	@echo
-	@BIBINPUTS=build: biber build/presentation.bcf|grep -i -e'biber' -e'error' -e'warn' --color=auto
-	@echo
-	@echo "Recompiling ${BLUE}$@${RESET} with ${RED}lualatex${RESET}..."
-	@lualatex $(TeXOptions) presentation.tex 1> build/log || cat build/log
-	@mv build/presentation.pdf $@
-	@make clean
-	@echo ${GREENB}${BACKGR}Success!${RESET}
+presentation_light.pdf: presentation.tex beamerthemetudo.sty plots_light | build
+	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
+	mv build/example.pdf $@
 
-presentation_dark.pdf: presentation.tex header.tex content/* graphics/* beamerthemetudo_dark.sty plots_dark | build
-	@echo "(${RED}lualatex${RESET}) make ${BLUE}$@${RESET}"
-	@TEXINPUTS="$$(pwd):" lualatex $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
-	@echo
-	@BIBINPUTS=build: biber build/presentation.bcf|grep -i -e'biber' -e'error' -e'warn' --color=auto
-	@echo
-	@echo "Recompiling ${BLUE}$@${RESET} with ${RED}lualatex${RESET}..."
-	@lualatex $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
-	@mv build/presentation.pdf $@
-	@make clean
-	@echo ${GREENB}${BACKGR}Success!${RESET}
+presentation_dark.pdf: presentation.tex beamerthemetudo_dark.sty plots_dark | build
+	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
+	mv build/example.pdf $@
 
 
 .PHONY: all light dark build log clean
