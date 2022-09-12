@@ -50,11 +50,11 @@ plots_dark: plots/plot.py matplotlibrc header-matplotlib.tex
 .DELETE_ON_ERROR:
 presentation_light.pdf: presentation.tex beamerthemetudo.sty plots_light | build
 	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
-	mv build/example.pdf $@
+	mv build/presentation.pdf $@
 
 presentation_dark.pdf: presentation.tex beamerthemetudo_dark.sty plots_dark | build
 	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
-	mv build/example.pdf $@
+	mv build/presentation.pdf $@
 
 
 .PHONY: all light dark build log clean
