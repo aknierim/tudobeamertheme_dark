@@ -17,24 +17,12 @@ TeXOptions = -lualatex \
 			 -output-directory=build
 
 
-all: presentation_light.pdf log presentation_dark.pdf
+all: presentation_light.pdf presentation_dark.pdf
 
 light: presentation_light.pdf
 
 dark: presentation_dark.pdf
 
-build:
-	@mkdir -p build/
-
-# simple workaround, else 'all' wouldn't work after 'presentation_light.pdf'
-# (for whatever reason)
-log:
-	@mkdir -p build
-	@touch build/log
-
-clean:
-	@rm -rf build
-	@echo ${GREEN}${BOLD}Removing build folder${RESET}
 
 plots_light: plots/plot.py matplotlibrc header-matplotlib.tex
 	@echo "Make ${BLUE}$@${RESET}:"
@@ -49,12 +37,28 @@ plots_dark: plots/plot.py matplotlibrc header-matplotlib.tex
 
 .DELETE_ON_ERROR:
 presentation_light.pdf: presentation.tex beamerthemetudo.sty plots_light | build
+	@echo 0 > build/darktheme.var
 	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
 	mv build/presentation.pdf $@
 
 presentation_dark.pdf: presentation.tex beamerthemetudo_dark.sty plots_dark | build
-	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) "\def\darktheme{1} \input{presentation.tex}" 1> build/log || cat build/log
+	@echo 1 > build/darktheme.var
+	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
 	mv build/presentation.pdf $@
 
+FORCE:
+
+build:
+	@mkdir -p build/
+
+# simple workaround, else 'all' wouldn't work after 'presentation_light.pdf'
+# (for whatever reason)
+log:
+	@mkdir -p build
+	@touch build/log
+
+clean:
+	@rm -rf build
+	@echo ${GREEN}${BOLD}Removing build folder${RESET}
 
 .PHONY: all light dark build log clean

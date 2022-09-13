@@ -1,16 +1,22 @@
 \input{header.tex}
 
+% catch variable to determine what theme to use
+\IfFileExists{./build/darktheme.var}
+ {\CatchFileDef{\theme}{./build/darktheme.var}{\endlinechar=-1}}
+ {\def\theme{-1}}
+
 % load the theme after all packages
-%\def\darktheme{1}
-\ifdefined\darktheme
+\ifthenelse{\equal{\theme}{\string 1}}
+  {% use dark theme
   \usetheme[
     % showtotalframes, % show total number of frames in the footline
   ]{tudo_dark}
-\else
+  }
+  {% use light theme
   \usetheme[
     % showtotalframes,
   ]{tudo}
-\fi
+  }
 
 \input{pkg-settings.tex}
 
