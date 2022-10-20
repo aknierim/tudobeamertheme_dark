@@ -51,12 +51,6 @@ FORCE:
 build:
 	@mkdir -p build/
 
-# simple workaround, else 'all' wouldn't work after 'presentation_light.pdf'
-# (for whatever reason)
-log:
-	@mkdir -p build
-	@touch build/log
-
 clean:
 	@rm -rf build
 	@echo ${GREEN}${BOLD}Removing build folder${RESET}
