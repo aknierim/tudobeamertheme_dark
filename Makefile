@@ -55,4 +55,4 @@ clean:
 	@rm -rf build
 	@echo ${GREEN}${BOLD}Removing build folder${RESET}
 
-.PHONY: all light dark build log clean
+.PHONY: FORCE all light dark clean
