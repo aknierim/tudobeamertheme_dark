@@ -22,7 +22,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.theme == 'dark':
-        plt.style.use('plots/darkmode.mplstyle')
+        plt.style.use('plots/darktheme.mplstyle')
 
     fig, ax = plt.subplots(1,1, constrained_layout=True)
 

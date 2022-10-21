@@ -41,7 +41,7 @@ presentation_light.pdf: presentation.tex beamerthemetudo.sty plots_light | build
 	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
 	mv build/presentation.pdf $@
 
-presentation_dark.pdf: presentation.tex beamerthemetudo_dark.sty plots_dark | build
+presentation_dark.pdf: presentation.tex beamerthemetudo.sty plots_dark | build
 	@echo 1 > build/darktheme.var
 	@TEXINPUTS="$$(pwd):" latexmk $(TeXOptions) presentation.tex 1> build/log || cat build/log
 	mv build/presentation.pdf $@

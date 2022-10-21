@@ -9,12 +9,15 @@
 \ifthenelse{\equal{\theme}{\string 1}}
   {% use dark theme
   \usetheme[
-    % showtotalframes, % show total number of frames in the footline
-  ]{tudo_dark}
+    showtotalframes, % show total number of frames in the footline
+    dark, % dark theme option
+    progressbar, % show progressbar
+  ]{tudo}
   }
   {% use light theme
   \usetheme[
-    % showtotalframes,
+    showtotalframes,
+    progressbar,
   ]{tudo}
   }
 
@@ -38,12 +41,12 @@
 \section{About this theme}
 \begin{frame}{Notes}
   This theme is based on the excellent \texttt{TUDoBeamerTheme} provided by Maximilian Nöthe \texttt{https://github.com/maxnoe/TUDoBeamerTheme}.
-  I merely added the dark theme option as well as some extras I found useful or "nice to have" when I created some talks with the original theme.
+  I merely added the dark theme option as well as some extras I found useful or \enquote{nice to have} when I created some talks with the original theme.
   \begin{itemize}
-    \item To install this theme at least the files \texttt{beamerthemetudo.sty} and \texttt{beamerthemetudo\_dark.sty} as well as the folder logos have to be moved to a folder where \LaTeX{} can find packages.
+    \item To install this theme at least the file \texttt{beamerthemetudo.sty} as well as the folder \texttt{logos/} have to be moved to a folder where \LaTeX{} can find packages.
       This can be
       \begin{itemize}
-        \item \texttt{TEXMFHOME/tex/latex/tudobeamertheme} and \texttt{TEXMFHOME/tex/latex/tudobeamertheme\_dark}. You can get \texttt{TEXMFHOME} by running \texttt{kpsewhich --var-value TEXMFHOME}, usually this would be \texttt{\$HOME/texmf}.
+        \item \texttt{TEXMFHOME/tex/latex/tudobeamertheme}. You can get \texttt{TEXMFHOME} by running \texttt{kpsewhich --var-value TEXMFHOME}, usually this would be \texttt{\$HOME/texmf}.
         \item The same folder in which you compile your document.
         \item Any folder that is included in the variable \texttt{TEXINPUTS} (see \texttt{makefile}).
       \end{itemize}
@@ -56,8 +59,8 @@
   General information on \LaTeX{} and Beamer:
   \begin{itemize}
     \item Extensive course on \LaTeX{} by PeP et Al. \\
-      \url{http://toolbox.pep-dortmund.org/notes}
-    \item Beamer \LaTeX{} class documetation:\\
+      \url{http://toolbox.pep-dortmund.org/notes.html}
+    \item Beamer \LaTeX{} class documentation:\\
       \url{http://www.ctan.org/pkg/beamer}
   \end{itemize}
 \end{frame}

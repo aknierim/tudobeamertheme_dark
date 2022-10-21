@@ -5,7 +5,18 @@
 \RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
 \RequirePackage{calc}
-\hypersetup{colorlinks=true, linkcolor=darkgray, urlcolor=tudark}
+
+
+\mode<presentation>
+\newif\if@showtotalframes\@showtotalframesfalse
+\DeclareOption{showtotalframes}{\@showtotalframestrue}
+
+\newif\if@dark\@darkfalse
+\DeclareOption{dark}{\@darktrue}
+
+\newif\if@progressbar\@progressbarfalse
+\DeclareOption{progressbar}{\@progressbartrue}
+\ProcessOptions
 
 
 %% colors
@@ -22,44 +33,44 @@
 % a thin and clean progress bar that fits well within the overall asthetic of
 % of this theme. Adapted from http://tex.stackexchange.com/a/59749 (Gonzalo Medina)
 \makeatletter
-\newcommand\progressbar@progressbar{} % the progress bar command
-\newcount\progressbar@tmpcounta % auxiliary counter
-\newcount\progressbar@tmpcountb % auxiliary counter
-\newdimen\progressbar@pbht % progressbar height
-\newdimen\progressbar@pbwd % progressbar width
-\newdimen\progressbar@tmpdim % auxiliary dimension
+\newcommand\progressb@progressb{} % the progress bar command
+\newcount\progressb@tmpcounta % auxiliary counter
+\newcount\progressb@tmpcountb % auxiliary counter
+\newdimen\progressb@pbht % progressb height
+\newdimen\progressb@pbwd % progressb width
+\newdimen\progressb@tmpdim % auxiliary dimension
 
-\progressbar@pbwd=\paperwidth
-\newcommand\progressbar@ffn{0} % needed amount of frames for title page and table of contents slide
+\progressb@pbwd=\paperwidth
+\newcommand\progressb@ffn{0} % needed amount of frames for title page and table of contents slide
 
 % the progress bar
-\def\progressbar@progressbar{%
-    \ifnum\insertframenumber>\progressbar@ffn
+\def\progressb@progressb{%
+    \ifnum\insertframenumber>\progressb@ffn
 
-    \progressbar@tmpcounta=\insertframenumber
-    \advance\progressbar@tmpcounta by -\progressbar@ffn
-    \progressbar@tmpcountb=\inserttotalframenumber
-    \advance\progressbar@tmpcountb by -\progressbar@ffn
-    \progressbar@tmpdim=\progressbar@pbwd
-    \multiply\progressbar@tmpdim by \progressbar@tmpcounta
-    \divide\progressbar@tmpdim by \progressbar@tmpcountb
+    \progressb@tmpcounta=\insertframenumber
+    \advance\progressb@tmpcounta by -\progressb@ffn
+    \progressb@tmpcountb=\inserttotalframenumber
+    \advance\progressb@tmpcountb by -\progressb@ffn
+    \progressb@tmpdim=\progressb@pbwd
+    \multiply\progressb@tmpdim by \progressb@tmpcounta
+    \divide\progressb@tmpdim by \progressb@tmpcountb
   \centering
   \begin{tikzpicture}[thin]
-    \draw[color=darkgray]
-      (3.75em,0) -- (\progressbar@pbwd-3.75em,0);
-
+    \if@dark%
+      \draw[color=white] %
+        (3.75em,0) -- (\progressb@pbwd-3.75em,0);
       \draw[color=tugreen] %
-        (3.75em,0) -- (\progressbar@tmpdim-3.75em, 0);
-
+        (3.75em,0) -- (\progressb@tmpdim-3.75em, 0);
+    \else%
+      \draw[color=darkgray] %
+        (3.75em,0) -- (\progressb@pbwd-3.75em,0);
+      \draw[color=tugreen] %
+        (3.75em,0) -- (\progressb@tmpdim-3.75em, 0);
+    \fi%
   \end{tikzpicture}%
   \fi%
 }
 
-
-\mode<presentation>
-\newif\if@showtotalframes\@showtotalframesfalse
-\DeclareOption{showtotalframes}{\@showtotalframestrue}
-\ProcessOptions
 
 \setbeamersize{text margin left=15pt, text margin right=15pt}
 \usefonttheme{professionalfonts}
@@ -115,7 +126,11 @@
     leftskip=\beamer@leftmargin,
     rightskip=1em,
   ]{headline}%
-    \includegraphics[height=\headerheight]{logos/tu.pdf}%
+    \if@dark%
+      \includegraphics[height=\headerheight]{logos/tu_light.pdf}%
+    \else%
+      \includegraphics[height=\headerheight]{logos/tu.pdf}%
+    \fi%
   \end{beamercolorbox}%
   \begin{beamercolorbox}[
     wd=0.65\paperwidth,
@@ -136,7 +151,11 @@
     % this adds the progress bar
     \hspace{\beamer@leftmargin}%
     \usebeamercolor{separation line}%
-    \progressbar@progressbar%
+    \if@progressbar%
+      \progressb@progressb%
+    \else%
+      \rule{\paperwidth-\beamer@leftmargin-\beamer@rightmargin}{0.4pt}%
+    \fi%
   \fi
   \vskip2ex
 }
@@ -262,26 +281,36 @@
 
 
 %% beamer colors
-\setbeamercolor{section in head/foot}{fg=tugreen, bg=white}
-\setbeamercolor{framenumber}{fg=tugreen, bg=white}
+\if@dark%
+  \colorlet{maincolor}{darkmode}% background color
+  \colorlet{fgcolor}{white}% foreground color, e.g. for text
+  \hypersetup{colorlinks=true, linkcolor=lightgray, urlcolor=tugreen!80!white}
+\else%
+  \colorlet{maincolor}{white}%
+  \colorlet{fgcolor}{darkgray}%
+  \hypersetup{colorlinks=true, linkcolor=darkgray, urlcolor=tudark}
+\fi
 
-\setbeamercolor{normal text}{fg=darkgray, bg=white}
-\setbeamercolor{alerted text}{fg=tuorange, bg=white}
-\setbeamercolor{palette primary}{fg=darkgray, bg=white}
-\setbeamercolor{palette secondary}{fg=tugreen, bg=white}
+\setbeamercolor{section in head/foot}{fg=tugreen, bg=maincolor}
+\setbeamercolor{framenumber}{fg=tugreen, bg=maincolor}
 
-\setbeamercolor{title}{fg=darkgray, bg=white}
-\setbeamercolor{structure}{fg=tugreen, bg=white}
+\setbeamercolor{normal text}{fg=fgcolor, bg=maincolor}
+\setbeamercolor{alerted text}{fg=tuorange, bg=maincolor}
+\setbeamercolor{palette primary}{fg=fgcolor, bg=maincolor}
+\setbeamercolor{palette secondary}{fg=tugreen, bg=maincolor}
 
-\setbeamercolor{frametitle}{fg=tugreen, bg=white}
+\setbeamercolor{title}{fg=fgcolor, bg=maincolor}
+\setbeamercolor{structure}{fg=tugreen, bg=maincolor}
 
-\setbeamercolor{item}{fg=tugreen, bg=white}
+\setbeamercolor{frametitle}{fg=tugreen, bg=maincolor}
 
-\setbeamercolor{block title}{fg=white, bg=tugreen}
-\setbeamercolor{block body}{fg=darkgray, bg=tulight}
+\setbeamercolor{item}{fg=tugreen, bg=maincolor}
 
-\setbeamercolor{section number in toc}{fg=tugreen, bg=white}
-\setbeamercolor{section in toc}{fg=darkgray, bg=white}
+\setbeamercolor{block title}{fg=maincolor, bg=tugreen}
+\setbeamercolor{block body}{fg=fgcolor, bg=tulight}
+
+\setbeamercolor{section number in toc}{fg=tugreen, bg=maincolor}
+\setbeamercolor{section in toc}{fg=fgcolor, bg=maincolor}
 
 
 % comment this out if you dont want to use title graphic behind your title and subtitle:
